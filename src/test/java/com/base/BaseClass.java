@@ -17,13 +17,15 @@ import org.openqa.selenium.support.ui.Select;
 public class BaseClass {
 	public static WebDriver driver;
 // 1.BrowserLaunch
-	public WebDriver getBrowserLaunch() {
+	public static WebDriver getBrowserLaunch() {
 		System.setProperty("webdriver.chrome.driver",
 				"C:\\Users\\admin\\eclipse-workspace\\Projects\\Drivers\\chromedriver.exe");
 		driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
 		return driver;
 	}
-// 2. To load Url	
+// 2. To load Url	 
 	public void get(String siteUrl) {
 		driver.get(siteUrl);
 	}
@@ -45,7 +47,7 @@ public class BaseClass {
 		element.sendKeys(values);
 	}
 // 7. Click	
-	public void btnClick(WebElement element) {
+	public static void btnClick(WebElement element) {
 		element.click();
 	}
 // 8. Clear
@@ -53,8 +55,8 @@ public class BaseClass {
 		element.clear();
 	}
 // 9.GetAttribute	
-	public String toGetAttribute(WebElement element, String key) {
-		String name = element.getAttribute(key);
+	public String toGetAttribute(WebElement element) {
+		String name = element.getAttribute("value");
 		return name;
 	}
 //10.Is displayed
@@ -158,6 +160,7 @@ public class BaseClass {
 			public void waitTime() {
 				driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
 			}
+			
 			public void drop(WebElement element, int index) {
 
 				new Select(element).selectByIndex(index);
